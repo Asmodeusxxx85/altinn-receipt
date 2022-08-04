@@ -25,7 +25,7 @@ function copyReactCss(cb) {
 
 function copyReceiptJS() {
   setTimeout(function () {
-    gulp.src(receiptFile).pipe(gulp.dest('./Receipt/wwwroot/receipt/js/react'));
+    gulp.src(receiptFile).pipe(gulp.dest('./backend/wwwroot/receipt/js/react'));
   }, 1000);
   console.log('copied');
   return;
@@ -33,7 +33,7 @@ function copyReceiptJS() {
 
 function copyReceiptCSS() {
   setTimeout(function () {
-    gulp.src(cssReceiptFile).pipe(gulp.dest('./Receipt/wwwroot/receipt/css'));
+    gulp.src(cssReceiptFile).pipe(gulp.dest('./backend/wwwroot/receipt/css'));
   }, 1000);
   return;
 }
