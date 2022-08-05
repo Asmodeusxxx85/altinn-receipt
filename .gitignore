@@ -1,18 +1,19 @@
 syntax: glob
 
-### VisualStudio ###
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
 
-# Tool Runtime Dir
-[Tt]ools/
+# Visual Studio Code
+.vscode
 
 # User-specific files
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-
-# Entity Framework
-Migrations/
 
 # Build results
 [Dd]ebug/
@@ -26,185 +27,12 @@ bld/
 [Bb]in/
 [Oo]bj/
 msbuild.log
-
-# Cross building rootfs
-cross/rootfs/
+msbuild.err
+msbuild.wrn
 
 # Visual Studio 2015
 .vs/
 
-# Visual Studio 2015 Pre-CTP6
-*.sln.ide
-*.ide/
-
-# MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
-
-#NUNIT
-*.VisualState.xml
-TestResult.xml
-
-#JUNIT
-junit.xml
-
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
-
-*_i.c
-*_p.c
-*_i.h
-*.ilk
-*.meta
-*.obj
-*.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
-*.log
-*.vspscc
-*.vssscc
-.builds
-*.pidb
-*.svclog
-*.scc
-
-# Chutzpah Test files
-_Chutzpah*
-
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opendb
-*.opensdf
-*.sdf
-*.cachefile
-
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-
-# TFS 2012 Local Workspace
-$tf/
-
-# Guidance Automation Toolkit
-*.gpState
-
-# ReSharper is a .NET coding add-in
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
-
-# JustCode is a .NET coding addin-in
-.JustCode
-
-# TeamCity is a build add-in
-_TeamCity*
-
-# DotCover is a Code Coverage Tool
-*.dotCover
-
-# NCrunch
-_NCrunch_*
-.*crunch*.local.xml
-
-# MightyMoose
-*.mm.*
-AutoTest.Net/
-
-# Web workbench (sass)
-.sass-cache/
-
-# Installshield output folder
-[Ee]xpress/
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
-
-# Click-Once directory
-publish/
-
-# Publish Web Output
-*.[Pp]ublish.xml
-*.azurePubxml
-*.pubxml
-*.publishproj
-
-# NuGet Packages
-*.nuget.props
-*.nuget.targets
-*.nupkg
-**/packages/*
-
-# Allow frontend packages
-!**/frontend/packages/*
-
-# NuGet package restore lockfiles
-project.lock.json
-
-# yarn lock file
-package-lock.json
-
-# Others
-*.Cache
-ClientBin/
-[Ss]tyle[Cc]op.*
-~$*
-*.dbmdl
-*.dbproj.schemaview
-*.publishsettings
-node_modules/
-*.metaproj
-*.metaproj.tmp
-
-# vim temporary files
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-*~
-/AltinnPoCExperiments
-
-# Sonarqube
-.scannerwork
-
-# TSLint report
-tslint_report.json
-
-
-
-## -- Repositories --
-
-# Binaries for programs and plugins
-*.exe
-*.dll
-*.so
-*.dylib
-
-# Test binary, build with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
 
 ######### Built react apps for receipt ###########
 src/backend/wwwroot/receipt/js/react
@@ -220,3 +48,42 @@ src/backend/wwwroot/receipt/css
 !/.yarn/releases
 !/.yarn/sdks
 !/.yarn/versions
+
+.DS_STORE
+node_modules
+scripts/flow/*/.flowconfig
+.flowconfig
+*~
+*.pyc
+.grunt
+_SpecRunner.html
+__benchmarks__
+build/
+remote-repo/
+coverage/
+.module-cache
+fixtures/dom/public/react-dom.js
+fixtures/dom/public/react.js
+test/the-files-to-test.generated.js
+*.log*
+chrome-user-data
+*.sublime-project
+*.sublime-workspace
+.idea
+*.iml
+.vscode
+*.swp
+*.swo
+
+packages/react-devtools-core/dist
+packages/react-devtools-extensions/chrome/build
+packages/react-devtools-extensions/chrome/*.crx
+packages/react-devtools-extensions/chrome/*.pem
+packages/react-devtools-extensions/firefox/build
+packages/react-devtools-extensions/firefox/*.xpi
+packages/react-devtools-extensions/firefox/*.pem
+packages/react-devtools-extensions/shared/build
+packages/react-devtools-extensions/.tempUserDataDir
+packages/react-devtools-inline/dist
+packages/react-devtools-shell/dist
+packages/react-devtools-timeline/dist
