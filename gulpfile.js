@@ -25,7 +25,7 @@ function copyReactCss(cb) {
 
 function copyReceiptJS() {
   setTimeout(function () {
-    gulp.src(receiptFile).pipe(gulp.dest('./backend/wwwroot/receipt/js/react'));
+    gulp.src(receiptFile).pipe(gulp.dest('src/backend/wwwroot/receipt/js/react'));
   }, 1000);
   console.log('copied');
   return;
@@ -33,7 +33,7 @@ function copyReceiptJS() {
 
 function copyReceiptCSS() {
   setTimeout(function () {
-    gulp.src(cssReceiptFile).pipe(gulp.dest('./backend/wwwroot/receipt/css'));
+    gulp.src(cssReceiptFile).pipe(gulp.dest('src/backend/wwwroot/receipt/css'));
   }, 1000);
   return;
 }
@@ -65,10 +65,10 @@ gulp.task(
   gulp.parallel(
     setupWatchers,
     run('dotnet run', {
-      cwd: './Receipt/',
+      cwd: './src/backend',
     }),
     run('yarn run webpack-watch', {
-      cwd: '../../Altinn.Apps/AppFrontend/react/receipt',
+      cwd: 'src/frontend/receipt',
     }),
   ),
 );
@@ -77,7 +77,7 @@ gulp.task(
   'install-react-app-dependencies',
   gulp.series(
     run('yarn --immutable', {
-      cwd: '../../Altinn.Apps/AppFrontend/react',
+      cwd: 'src/frontend',
     }),
   ),
 );
@@ -86,7 +86,7 @@ gulp.task(
   'default',
   gulp.series([
     run('yarn run build', {
-      cwd: '../../Altinn.Apps/AppFrontend/react/receipt',
+      cwd: 'src/frontend/receipt',
     }),
     'copy-files',
   ]),

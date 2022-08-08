@@ -37,6 +37,7 @@ msbuild.wrn
 ######### Built react apps for receipt ###########
 src/backend/wwwroot/receipt/js/react
 src/backend/wwwroot/receipt/css
+src/frontend/receipt/dist/*
 
 
 #https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
@@ -48,6 +49,14 @@ src/backend/wwwroot/receipt/css
 !/.yarn/releases
 !/.yarn/sdks
 !/.yarn/versions
+
+src/frontend/.pnp.*
+src/frontend/.yarn/*
+!src/frontend/.yarn/patches
+!src/frontend/.yarn/plugins
+!src/frontend/.yarn/releases
+!src/frontend/.yarn/sdks
+!src/frontend/.yarn/versions
 
 .DS_STORE
 node_modules
