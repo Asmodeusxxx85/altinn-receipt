@@ -39,6 +39,6 @@ The script wil also listen to changes in the receipt react app, rebuild and copy
 
 ##### Docker
 
-- Open a terminal in `src/backend/Altinn.Platform.Receipt`
+- Open a terminal in `src/backend`
 - run `docker build .`
 - The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`
