@@ -1,0 +1,37 @@
+version: 2
+updates:
+  - directory: "src/backend"
+    package-ecosystem: "nuget"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "07:00"
+      timezone: "Europe/Oslo"
+
+## Test
+  - directory: "test"
+    package-ecosystem: "nuget"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "07:00"
+      timezone: "Europe/Oslo"
+
+## Dockerfile
+  - directory: "/"
+    package-ecosystem: "docker"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "07:00"
+      timezone: "Europe/Oslo"
+
+## Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "07:00"
+      timezone: "Europe/Oslo"
+    open-pull-requests-limit: 10
