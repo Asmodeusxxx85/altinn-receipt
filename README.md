@@ -27,18 +27,22 @@ Also use an app for creating data that should be presented in receipt.
 
 ##### Manual
 
-- Open a terminal in `src/backend`
+- Open a terminal in `src/backend/Altinn.Receipt`
 - run `yarn --immutable`
 - run `yarn run gulp-install-deps`
 - run `yarn run gulp` (if running for the first time, otherwise this can be skipped)
 - run `yarn run gulp-develop`
 
 This will build and run receipt back end, and build and copy the receipt frontend to the `wwwroot` folder.
-The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`
 The script wil also listen to changes in the receipt react app, rebuild and copy the new react app to the `wwwroot` folder.
+
+The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`.
+
+    > :warning: **Not available in browser**: Post 5060 is blocked in the most popular browsers. To test receipt in browser run localtest and access application at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
+
 
 ##### Docker
 
-- Open a terminal in `src/backend/Altinn.Platform.Receipt`
-- run `docker build .`
+- Open a terminal in `src/backend/Altinn.Receipt`
+- run `docker-compose up`
 - The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`

@@ -25,7 +25,7 @@ function copyReactCss(cb) {
 
 function copyReceiptJS() {
   setTimeout(function () {
-    gulp.src(receiptFile).pipe(gulp.dest('src/backend/wwwroot/receipt/js/react'));
+    gulp.src(receiptFile).pipe(gulp.dest('src/backend/Altinn.Receipt/wwwroot/receipt/js/react'));
   }, 1000);
   console.log('copied');
   return;
@@ -33,7 +33,7 @@ function copyReceiptJS() {
 
 function copyReceiptCSS() {
   setTimeout(function () {
-    gulp.src(cssReceiptFile).pipe(gulp.dest('src/backend/wwwroot/receipt/css'));
+    gulp.src(cssReceiptFile).pipe(gulp.dest('src/backend/Altinn.Receipt/wwwroot/receipt/css'));
   }, 1000);
   return;
 }
@@ -65,7 +65,7 @@ gulp.task(
   gulp.parallel(
     setupWatchers,
     run('dotnet run', {
-      cwd: './src/backend',
+      cwd: './src/backend/Altinn.Receipt',
     }),
     run('yarn run webpack-watch', {
       cwd: 'src/frontend/receipt',
