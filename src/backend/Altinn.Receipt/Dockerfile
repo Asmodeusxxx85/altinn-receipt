@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0.302-alpine3.16 AS build
 # Copy receipt backend
 WORKDIR /Receipt/
 
-COPY Receipt .
+COPY Altinn.Receipt .
 
 # Build and publish
 RUN dotnet build Altinn.Platform.Receipt.csproj -c Release -o /app_output

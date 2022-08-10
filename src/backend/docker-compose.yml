@@ -32,4 +32,4 @@ services:
       - altinn_receipt_react_app
     build:
       context: .
-      dockerfile: Receipt/Dockerfile
+      dockerfile: Altinn.Receipt/Dockerfile
