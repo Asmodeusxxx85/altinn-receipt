@@ -44,4 +44,3 @@ Making changes to the frontend code will automatically recompile and reload the 
 - run `docker-compose up`
 
 The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`. If you make changes to the code, you will need to rerun `docker-compose up --build`.
-
