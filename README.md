@@ -10,11 +10,11 @@ These instructions will get you a copy of the receipt component up and running o
 ### Prerequisites
 
 1. [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
-2. Code editor of your choice
-3. Newest [Git](https://git-scm.com/downloads)
-4. [Docker CE](https://www.docker.com/get-docker)
-5. Solution is cloned
-
+2. [Node LTS](https://nodejs.org/en/)
+3. Code editor of your choice
+4. Newest [Git](https://git-scm.com/downloads)
+5. [Docker CE](https://www.docker.com/get-docker)
+6. Solution is cloned
 
 #### Platform Receipt
 
@@ -27,22 +27,21 @@ Also use an app for creating data that should be presented in receipt.
 
 ##### Manual
 
-- Open a terminal in `src/backend/Altinn.Receipt`
-- run `yarn --immutable`
-- run `yarn run gulp-install-deps`
-- run `yarn run gulp` (if running for the first time, otherwise this can be skipped)
-- run `yarn run gulp-develop`
+- Open `src/backend/Views/Receipt/receipt.cshtml` and change the `link` and `script` tags according to the comments in that file.
+- Open a terminal in `src/backend`
+- Execute `dotnet run` and keep the process running
 
-This will build and run receipt back end, and build and copy the receipt frontend to the `wwwroot` folder.
-The script wil also listen to changes in the receipt react app, rebuild and copy the new react app to the `wwwroot` folder.
+- Open another terminal in `src/frontend/receipt`
+- Execute `yarn --immutable` (only required first time, or when dependencies in package.json changes)
+- Execute `yarn start`
 
-The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`.
-
-    > :warning: **Not available in browser**: Post 5060 is blocked in the most popular browsers. To test receipt in browser run localtest and access application at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
-
+The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
+Making changes to the frontend code will automatically recompile and reload the browser with the updated changes.
 
 ##### Docker
 
-- Open a terminal in `src/backend/Altinn.Receipt`
+- Open a terminal in `src/backend/Altnn.Receipt`
 - run `docker-compose up`
-- The application should now be available at `localhost:5060/receipt/{instanceOwnerId}/{instanceId}`
+
+The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`. If you make changes to the code, you will need to rerun `docker-compose up --build`.
+
