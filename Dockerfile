@@ -22,7 +22,7 @@ CMD ["echo", "done"]
 
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0.302-alpine3.16 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.400-alpine3.16 AS build
 
 # Copy receipt backend
 WORKDIR /Receipt/
@@ -33,7 +33,7 @@ COPY src/backend/Altinn.Receipt .
 RUN dotnet build Altinn.Platform.Receipt.csproj -c Release -o /app_output
 RUN dotnet publish Altinn.Platform.Receipt.csproj -c Release -o /app_output
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.7-alpine3.16 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.8-alpine3.16 AS final
 EXPOSE 5060
 WORKDIR /app
 COPY --from=build /app_output .
