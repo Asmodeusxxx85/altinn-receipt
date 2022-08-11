@@ -7,8 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js --progress",
     "test": "jest",
     "compile-ts": "tsc",
-    "clean": "rimraf dist compiled",
-    "webpack-watch": "cross-env NODE_ENV=development webpack --config webpack.config.development.js --watch --progress"
+    "clean": "rimraf dist compiled"
   },
   "author": "Altinn",
   "license": "3-Clause BSD",

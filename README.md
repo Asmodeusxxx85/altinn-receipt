@@ -27,8 +27,8 @@ Also use an app for creating data that should be presented in receipt.
 
 ##### Manual
 
-- Open `src/backend/Views/Receipt/receipt.cshtml` and change the `link` and `script` tags according to the comments in that file.
-- Open a terminal in `src/backend`
+- Open `src/backend/Views/Altinn.Receipt/receipt.cshtml` and change the `link` and `script` tags according to the comments in that file.
+- Open a terminal in `src/backend/Altinn.Receipt`
 - Execute `dotnet run` and keep the process running
 
 - Open another terminal in `src/frontend/receipt`
