@@ -39,4 +39,5 @@ The application should now be available at `altinn3local.no/receipt/{instanceOwn
 Making changes to the frontend code will automatically recompile and reload the browser with the updated changes.
 
 
-The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`. If you make changes to the code, you will need to rerun `docker-compose up --build`.
+The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`. 
+If you make changes to the code, you will need to rerun `docker-compose up --build`.
