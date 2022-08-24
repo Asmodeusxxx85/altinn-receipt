@@ -3,8 +3,8 @@ updates:
   - directory: "src/backend"
     package-ecosystem: "nuget"
     schedule:
-      interval: "weekly"
-      day: "thursday"
+      interval: "daily"
+      ##day: "thursday"
       time: "07:00"
       timezone: "Europe/Oslo"
 
@@ -12,8 +12,8 @@ updates:
   - directory: "test"
     package-ecosystem: "nuget"
     schedule:
-      interval: "weekly"
-      day: "thursday"
+      interval: "daily"
+      ##day: "thursday"
       time: "07:00"
       timezone: "Europe/Oslo"
 
@@ -21,8 +21,8 @@ updates:
   - directory: "/"
     package-ecosystem: "docker"
     schedule:
-      interval: "weekly"
-      day: "thursday"
+      interval: "daily"
+      ##day: "thursday"
       time: "07:00"
       timezone: "Europe/Oslo"
 
@@ -30,8 +30,8 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "thursday"
+      interval: "daily"
+      ##day: "thursday"
       time: "07:00"
       timezone: "Europe/Oslo"
     open-pull-requests-limit: 10
