@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - directory: "src/backend"
+  - directory: "src/backend/Altinn.Receipt"
     package-ecosystem: "nuget"
     schedule:
       interval: "daily"
