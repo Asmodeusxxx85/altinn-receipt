@@ -22,7 +22,7 @@ CMD ["echo", "done"]
 
 
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0.400-alpine3.16 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.401-alpine3.16 AS build
 
 # Copy receipt backend
 WORKDIR /Receipt/
