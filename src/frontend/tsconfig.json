@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
+    "types": ["node", "jest"],
+    "paths": {
+      "src/*": ["./src/*"],
+      "testConfig/*": ["./testConfig/*"]
+    },
     "outDir": "compiled",
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "lib": ["es6", "dom", "es7", "esnext"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "./",
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,

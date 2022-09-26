@@ -31,7 +31,7 @@ Also use an app for creating data that should be presented in receipt.
 - Open a terminal in `src/backend/Altinn.Receipt`
 - Execute `dotnet run` and keep the process running
 
-- Open another terminal in `src/frontend/receipt`
+- Open another terminal in `src/frontend`
 - Execute `yarn --immutable` (only required first time, or when dependencies in package.json changes)
 - Execute `yarn start`
 
@@ -39,5 +39,5 @@ The application should now be available at `altinn3local.no/receipt/{instanceOwn
 Making changes to the frontend code will automatically recompile and reload the browser with the updated changes.
 
 
-The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`. 
+The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
 If you make changes to the code, you will need to rerun `docker-compose up --build`.
