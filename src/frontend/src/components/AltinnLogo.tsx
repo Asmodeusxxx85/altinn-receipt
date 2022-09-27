@@ -9,12 +9,12 @@ export interface IAltinnLogoProps {
 function getLogoColor(color: string) {
   const colors = appTheme.altinnPalette.primary;
   switch (color) {
-    case ('white'):
-    case (colors.white):
+    case 'white':
+    case colors.white:
       return 'white';
 
-    case ('blueDark'):
-    case (colors.blueDark):
+    case 'blueDark':
+    case colors.blueDark:
       return 'blue';
 
     default:
@@ -22,12 +22,14 @@ function getLogoColor(color: string) {
   }
 }
 
-export const altinnLogo = (props: IAltinnLogoProps) => {
-  const logoColor = getLogoColor(props.color);
+export const AltinnLogo = ({ color }: IAltinnLogoProps) => {
+  const logoColor = getLogoColor(color);
   let filterClass = '';
+
   if (logoColor === 'black') {
-    filterClass = ` logo-filter-${props.color.replace('#', '')}`;
+    filterClass = ` logo-filter-${color.replace('#', '')}`;
   }
+
   return (
     <img
       src={`https://altinncdn.no/img/Altinn-logo-${logoColor}.svg`}
@@ -38,4 +40,4 @@ export const altinnLogo = (props: IAltinnLogoProps) => {
   );
 };
 
-export default altinnLogo;
+export default AltinnLogo;

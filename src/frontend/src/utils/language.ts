@@ -1,5 +1,6 @@
 import DOMPurify from 'dompurify';
-import parseHtmlToReact, { HTMLReactParserOptions } from 'html-react-parser';
+import type { HTMLReactParserOptions } from 'html-react-parser';
+import parseHtmlToReact from 'html-react-parser';
 import { marked } from 'marked';
 
 import type { ITextResource, IDataSources, ILanguage, IApplication, IAltinnOrgs } from '../types';
