@@ -96,6 +96,8 @@ export interface IInstance {
 }
 
 export interface IInstanceStatus {
+  archived?: Date;
+  isArchived: boolean;
   substatus: ISubstatus;
 }
 

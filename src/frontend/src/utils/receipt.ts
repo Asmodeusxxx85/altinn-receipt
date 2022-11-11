@@ -30,9 +30,16 @@ export const getInstanceMetaDataObject = (
   }
 
   let dateSubmitted;
-  if (instance.data) {
-    const lastChanged = getCurrentTaskData(application, instance).lastChanged;
-    dateSubmitted = moment(lastChanged).format('DD.MM.YYYY / HH:mm');
+  if (instance.data && instance.data.length > 0) {
+    let currentTaskData = getCurrentTaskData(application, instance);
+    if (currentTaskData !== undefined) {
+      const lastChanged = getCurrentTaskData(application, instance).lastChanged;
+      dateSubmitted = moment(lastChanged).format('DD.MM.YYYY / HH:mm');
+    }
+  }
+
+  if (dateSubmitted === undefined && instance.status.isArchived) {
+    dateSubmitted = moment(instance.status.archived).format('DD.MM.YYYY / HH:mm');
   }
 
   obj[getLanguageFromKey('receipt_platform.date_sent', language)] =

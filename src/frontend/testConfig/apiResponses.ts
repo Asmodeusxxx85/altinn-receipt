@@ -75,6 +75,8 @@ export const instance: IExtendedInstance = {
       endEvent: null,
     },
     status: {
+      archived: null,
+      isArchived: false,
       substatus: null,
     },
     data: [
@@ -144,6 +146,8 @@ export const instanceWithSubstatus: IExtendedInstance = {
   instance: {
     ...instance.instance,
     status: {
+      archived: null,
+      isArchived: false,
       substatus: {
         label: 'Substatus label',
         description: 'Substatus description',
