@@ -44,7 +44,8 @@ export function AltinnCollapsibleAttachments(props: IAltinnCollapsibleAttachment
     setOpen(!open);
   }
 
-  const attachmentCount = props.hideCount ? '' : `(${props.attachments && props.attachments.length})`;
+  const attachmentCount = props.hideCount == true ? ''
+    : Array.isArray(props.attachments) ? '(' + props.attachments.length + ')' : '(0)';
 
   return(
     <>
@@ -69,7 +70,7 @@ export function AltinnCollapsibleAttachments(props: IAltinnCollapsibleAttachment
               />
             </ListItemIcon>
             <ListItemText
-              primary={`${props.title} ${attachmentCount}`}
+              primary={<>{props.title} {attachmentCount}</>}
               classes={{
                 root: classNames(props.classes.listItemTextPadding),
                 primary: classNames(props.classes.collapsedTitle),
