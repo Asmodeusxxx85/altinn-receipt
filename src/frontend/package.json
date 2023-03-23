@@ -59,7 +59,7 @@
     "jsdom": "21.1.1",
     "mini-css-extract-plugin": "2.7.5",
     "msw": "1.1.0",
-    "prettier": "2.8.4",
+    "prettier": "2.8.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rimraf": "4.4.0",
@@ -68,9 +68,9 @@
     "ts-jest": "29.0.5",
     "ts-loader": "9.4.2",
     "typescript": "4.9.5",
-    "webpack": "5.76.0",
+    "webpack": "5.76.2",
     "webpack-cli": "5.0.1",
-    "webpack-dev-server": "4.12.0"
+    "webpack-dev-server": "4.13.1"
   },
   "packageManager": "yarn@3.5.0",
   "jest": {

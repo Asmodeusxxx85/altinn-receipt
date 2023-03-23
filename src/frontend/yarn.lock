@@ -10741,12 +10741,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.4":
-  version: 2.8.4
-  resolution: "prettier@npm:2.8.4"
+"prettier@npm:2.8.5":
+  version: 2.8.5
+  resolution: "prettier@npm:2.8.5"
   bin:
     prettier: bin-prettier.js
-  checksum: c173064bf3df57b6d93d19aa98753b9b9dd7657212e33b41ada8e2e9f9884066bb9ca0b4005b89b3ab137efffdf8fbe0b462785aba20364798ff4303aadda57e
+  checksum: b7f8d30e14061e0478bc5a59d4d889688d804c173a0daa91b1b85dc08eef5eb6956d1b59f4037770776fda5b967f6c9ca3b7a8a43c50bedb4c7b182029f865aa
   languageName: node
   linkType: hard
 
@@ -11172,7 +11172,7 @@ __metadata:
     mini-css-extract-plugin: 2.7.5
     moment: 2.29.4
     msw: 1.1.0
-    prettier: 2.8.4
+    prettier: 2.8.5
     react: 18.2.0
     react-content-loader: 6.2.1
     react-dom: 18.2.0
@@ -11182,9 +11182,9 @@ __metadata:
     ts-jest: 29.0.5
     ts-loader: 9.4.2
     typescript: 4.9.5
-    webpack: 5.76.0
+    webpack: 5.76.2
     webpack-cli: 5.0.1
-    webpack-dev-server: 4.12.0
+    webpack-dev-server: 4.13.1
   languageName: unknown
   linkType: soft
 
@@ -13131,9 +13131,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-server@npm:4.12.0":
-  version: 4.12.0
-  resolution: "webpack-dev-server@npm:4.12.0"
+"webpack-dev-server@npm:4.13.1":
+  version: 4.13.1
+  resolution: "webpack-dev-server@npm:4.13.1"
   dependencies:
     "@types/bonjour": ^3.5.9
     "@types/connect-history-api-fallback": ^1.3.5
@@ -13168,11 +13168,13 @@ __metadata:
   peerDependencies:
     webpack: ^4.37.0 || ^5.0.0
   peerDependenciesMeta:
+    webpack:
+      optional: true
     webpack-cli:
       optional: true
   bin:
     webpack-dev-server: bin/webpack-dev-server.js
-  checksum: 3e33acb774457ee787038d66c12e04c3e4a9f91bbff7ca143083e4ac1937b1615a1b9e7387ec623df8ebc36f56b3c34742578c09f665fe811b6e38d2e8222a94
+  checksum: f70611544b7d964a31eb3d934d7c2b376b97e6927a89e03b2e21cfa5812bb639625cd18fd350de1604ba6c455b324135523a894032f28c69d90d90682e4f3b7d
   languageName: node
   linkType: hard
 
@@ -13193,9 +13195,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.76.0":
-  version: 5.76.0
-  resolution: "webpack@npm:5.76.0"
+"webpack@npm:5.76.2":
+  version: 5.76.2
+  resolution: "webpack@npm:5.76.2"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^0.0.51
@@ -13226,7 +13228,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: e897b3b34068222fe910d8894837cbf39f5e66b4772fe8d24dfc0090cd13e19337a3a757a97bc185be6c64d9d5a7b1ae372821b65a6079ce8c7ceba606edb409
+  checksum: 86db98299a175c371031449c26077e87b33acd8f45de7f7945ed4b9b37c8ca11bc5169af9c44743efccd4d55e08042a3aa3a3bc42aff831309a0821ffbcd395e
   languageName: node
   linkType: hard
 
