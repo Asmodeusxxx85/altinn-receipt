@@ -24,7 +24,7 @@ export function getLanguageFromKey(key: string, language: ILanguage) {
 }
 
 export function getNestedObject(nestedObj: any, pathArr: string[]) {
-  return pathArr.reduce((obj, key) => ((obj && obj[key] !== 'undefined') ? obj[key] : undefined), nestedObj);
+  return pathArr.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), nestedObj);
 }
 
 // Example: {getParsedLanguageFromKey('marked.markdown', language, ['hei', 'sann'])}
@@ -52,7 +52,6 @@ export const getParsedLanguageFromText = (text: string, allowedTags?: string[], 
   const clean = DOMPurify.sanitize(dirty, options);
   return parseHtmlToReact(clean.toString().trim(), parseOptions);
 };
-
 
 export const parseOptions: HTMLReactParserOptions = {
   replace: (domNode) => {
@@ -132,11 +131,9 @@ export function replaceTextResourceParams(
       resource.variables.forEach((variable) => {
         if (variable.dataSource.startsWith('dataModel')) {
           replaceValues.push(dataSources.dataModel[variable.key] || variable.key);
-        }
-        else if (variable.dataSource === 'applicationSettings') {
+        } else if (variable.dataSource === 'applicationSettings') {
           replaceValues.push(dataSources.applicationSettings[variable.key] || variable.key);
-        }
-        else if (variable.dataSource === 'instanceContext') {
+        } else if (variable.dataSource === 'instanceContext') {
           replaceValues.push(dataSources.instanceContext[variable.key] || variable.key);
         }
       });
@@ -150,47 +147,67 @@ export function replaceTextResourceParams(
   return textResources;
 }
 
-export function getAppOwner(
-  textResources: ITextResource[],
-  orgs: IAltinnOrgs,
-  org: string,
+export function getOrgName(
+  orgs: IAltinnOrgs | null,
+  org: string | undefined,
   userLanguage: string,
-  ) {
-
-  const appOwner = getTextResourceByKey('appOwner', textResources);
-  if (appOwner !== 'appOwner') {
-    return appOwner;
-  }
-
-  // if no text resource key is set, fetch from orgs
-  if (orgs && orgs[org]) {
+): string | undefined {
+  if (orgs && typeof org === 'string' && orgs[org]) {
     return orgs[org].name[userLanguage] || orgs[org].name.nb;
   }
 
   return undefined;
 }
 
+const appOwnerKey = 'appOwner';
+
+export function getAppOwner(
+  textResources: ITextResource[],
+  orgs: IAltinnOrgs | null,
+  org: string | undefined,
+  userLanguage: string,
+) {
+  const appOwner = getTextResourceByKey(appOwnerKey, textResources);
+  if (appOwner !== appOwnerKey) {
+    return appOwner;
+  }
+
+  return getOrgName(orgs, org, userLanguage);
+}
+
+const appReceiverKey = 'appReceiver';
+
+export function getAppReceiver(
+  textResources: ITextResource[],
+  orgs: IAltinnOrgs | null,
+  org: string | undefined,
+  userLanguage: string,
+): string | undefined {
+  const appReceiver = getTextResourceByKey(appReceiverKey, textResources);
+  if (appReceiver !== appReceiverKey) {
+    return appReceiver;
+  }
+
+  return getOrgName(orgs, org, userLanguage);
+}
+
 const appNameKey = 'appName';
 const oldAppNameKey = 'ServiceName';
 
-export function getAppName(
-  textResources: ITextResource[],
-  applicationMetadata: IApplication,
-  userLanguage: string
-  ) {
-    let appName = getTextResourceByKey(appNameKey, textResources);
-    if (appName === appNameKey) {
-      appName = getTextResourceByKey(oldAppNameKey, textResources);
-    }
+export function getAppName(textResources: ITextResource[], applicationMetadata: IApplication, userLanguage: string) {
+  let appName = getTextResourceByKey(appNameKey, textResources);
+  if (appName === appNameKey) {
+    appName = getTextResourceByKey(oldAppNameKey, textResources);
+  }
 
-    if (appName !== appNameKey && appName !== oldAppNameKey) {
-      return appName;
-    }
+  if (appName !== appNameKey && appName !== oldAppNameKey) {
+    return appName;
+  }
 
-    // if no text resource key is set, fetch from app metadata
-    if (applicationMetadata) {
-        return applicationMetadata.title[userLanguage] || applicationMetadata.title.nb;
-    }
+  // if no text resource key is set, fetch from app metadata
+  if (applicationMetadata) {
+    return applicationMetadata.title[userLanguage] || applicationMetadata.title.nb;
+  }
 
-    return undefined;
+  return undefined;
 }
