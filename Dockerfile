@@ -17,7 +17,7 @@ RUN yarn --immutable
 RUN yarn run build
 
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0.302-alpine3.17 AS build-receipt-backend
+FROM mcr.microsoft.com/dotnet/sdk:7.0.304-alpine3.18 AS build
 
 # Copy receipt backend
 WORKDIR /Receipt/
@@ -29,10 +29,10 @@ RUN dotnet build Altinn.Platform.Receipt.csproj -c Release -o /app_output
 RUN dotnet publish Altinn.Platform.Receipt.csproj -c Release -o /app_output
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0.5-alpine3.17 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.7-alpine3.18 AS final
 EXPOSE 5060
 WORKDIR /app
-COPY --from=build-receipt-backend /app_output .
+COPY --from=build /app_output .
 COPY --from=build-receipt-frontend /build/dist/receipt.js ./wwwroot/receipt/js/react/receipt.js
 COPY --from=build-receipt-frontend /build/dist/receipt.css ./wwwroot/receipt/css/receipt.css
 
