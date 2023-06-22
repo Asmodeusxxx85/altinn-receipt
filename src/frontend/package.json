@@ -17,7 +17,7 @@
     "axios": "0.27.2",
     "classnames": "2.3.2",
     "dompurify": "3.0.3",
-    "html-react-parser": "3.0.16",
+    "html-react-parser": "4.0.0",
     "marked": "5.1.0",
     "moment": "2.29.4",
     "react": "18.2.0",
