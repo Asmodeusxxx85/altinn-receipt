@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- SonarCloud needs this -->
     <ProjectGuid>{3E337964-095D-467D-ABD3-964798848144}</ProjectGuid>
   </PropertyGroup>
@@ -30,10 +31,6 @@
     </AdditionalFiles>
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <CodeAnalysisRuleSet>..\..\..\Altinn3.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
   <Target Name="AfterPublishScript" AfterTargets="Publish">
     <MakeDir Directories="$(PublishDir)Languages" Condition="!Exists('$(PublishDir)Languages')" />
     <Copy SourceFiles="@(CoreLanguage)" DestinationFolder="$(PublishDir)Languages" />
@@ -44,8 +41,4 @@
     <Copy SourceFiles="@(CoreLanguage)" DestinationFolder="$(PublishDir)Languages" />
   </Target>
 
-  <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-  </PropertyGroup>
 </Project>

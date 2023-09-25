@@ -247,17 +247,14 @@ void Configure(IConfiguration config)
     app.UseRouting();
     app.UseAuthentication();
     app.UseAuthorization();
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-        endpoints.MapControllerRoute(
-            name: "languageRoute",
-            pattern: "receipt/api/v1/{controller}/{action=Index}",
-            defaults: new { controller = "Language" },
-            constraints: new
-            {
-                controller = "Language",
-            });
-        endpoints.MapHealthChecks("/health");
-    });
+    app.MapControllers();
+    app.MapControllerRoute(
+        name: "languageRoute",
+        pattern: "receipt/api/v1/{controller}/{action=Index}",
+        defaults: new { controller = "Language" },
+        constraints: new
+        {
+            controller = "Language",
+        });
+    app.MapHealthChecks("/health");
 }
