@@ -2126,10 +2126,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.49.0":
-  version: 8.49.0
-  resolution: "@eslint/js@npm:8.49.0"
-  checksum: a6601807c8aeeefe866926ad92ed98007c034a735af20ff709009e39ad1337474243d47908500a3bde04e37bfba16bcf1d3452417f962e1345bc8756edd6b830
+"@eslint/js@npm:8.50.0":
+  version: 8.50.0
+  resolution: "@eslint/js@npm:8.50.0"
+  checksum: 302478f2acaaa7228729ec6a04f56641590185e1d8cd1c836a6db8a6b8009f80a57349341be9fbb9aa1721a7a569d1be3ffc598a33300d22816f11832095386c
   languageName: node
   linkType: hard
 
@@ -3100,12 +3100,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dompurify@npm:3.0.2":
-  version: 3.0.2
-  resolution: "@types/dompurify@npm:3.0.2"
+"@types/dompurify@npm:3.0.3":
+  version: 3.0.3
+  resolution: "@types/dompurify@npm:3.0.3"
   dependencies:
     "@types/trusted-types": "*"
-  checksum: dc017e16a46bcc77086af7d4dc5d2bf4102f16bf1a11b2937e90380da50e77716a2a608ff52990b1293250fefc2ad7593a1378fe07e3a7e21f200d702f0a7878
+  checksum: ff629277db4d19d836b0d878e93efb27d876d1073db81507c39d44d509b30ee3bcdc9e951dbbf9574b1fc6c52e1eaa95abf4279fa45aca281868717f8a7298da
   languageName: node
   linkType: hard
 
@@ -6466,9 +6466,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:3.6.0":
-  version: 3.6.0
-  resolution: "eslint-import-resolver-typescript@npm:3.6.0"
+"eslint-import-resolver-typescript@npm:3.6.1":
+  version: 3.6.1
+  resolution: "eslint-import-resolver-typescript@npm:3.6.1"
   dependencies:
     debug: ^4.3.4
     enhanced-resolve: ^5.12.0
@@ -6480,7 +6480,7 @@ __metadata:
   peerDependencies:
     eslint: "*"
     eslint-plugin-import: "*"
-  checksum: 57b1b3859149f847e0d4174ff979cf35362d60c951df047f01b96f4c3794a7ea0d4e1ec85be25e610d3706902c3acfb964a66b825c1a55e3ce3a124b9a7a13bd
+  checksum: 454fa0646533050fb57f13d27daf8c71f51b0bb9156d6a461290ccb8576d892209fcc6702a89553f3f5ea8e5b407395ca2e5de169a952c953685f1f7c46b4496
   languageName: node
   linkType: hard
 
@@ -6637,14 +6637,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.49.0":
-  version: 8.49.0
-  resolution: "eslint@npm:8.49.0"
+"eslint@npm:8.50.0":
+  version: 8.50.0
+  resolution: "eslint@npm:8.50.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": 8.49.0
+    "@eslint/js": 8.50.0
     "@humanwhocodes/config-array": ^0.11.11
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6680,7 +6680,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 4dfe257e1e42da2f9da872b05aaaf99b0f5aa022c1a91eee8f2af1ab72651b596366320c575ccd4e0469f7b4c97aff5bb85ae3323ebd6a293c3faef4028b0d81
+  checksum: 9ebfe5615dc84700000d218e32ddfdcfc227ca600f65f18e5541ec34f8902a00356a9a8804d9468fd6c8637a5ef6a3897291dad91ba6579d5b32ffeae5e31768
   languageName: node
   linkType: hard
 
@@ -11701,7 +11701,7 @@ __metadata:
     "@testing-library/jest-dom": 5.17.0
     "@testing-library/react": 14.0.0
     "@testing-library/user-event": 14.5.1
-    "@types/dompurify": 3.0.2
+    "@types/dompurify": 3.0.3
     "@types/jest": 29.5.5
     "@types/jsdom": 21.1.3
     "@types/marked": 5.0.1
@@ -11717,9 +11717,9 @@ __metadata:
     cross-env: 7.0.3
     css-loader: 6.8.1
     dompurify: 3.0.5
-    eslint: 8.49.0
+    eslint: 8.50.0
     eslint-config-prettier: 9.0.0
-    eslint-import-resolver-typescript: 3.6.0
+    eslint-import-resolver-typescript: 3.6.1
     eslint-plugin-import: 2.28.1
     eslint-plugin-jsx-a11y: 6.7.1
     eslint-plugin-react: 7.33.2
