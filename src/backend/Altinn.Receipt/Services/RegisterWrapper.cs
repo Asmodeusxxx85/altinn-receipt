@@ -1,14 +1,16 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+
 using Altinn.Common.AccessTokenClient.Services;
-using Altinn.Platform.Receipt.Clients;
 using Altinn.Platform.Receipt.Configuration;
 using Altinn.Platform.Receipt.Extensions;
 using Altinn.Platform.Receipt.Helpers;
 using Altinn.Platform.Receipt.Services.Interfaces;
 using Altinn.Platform.Register.Models;
+
 using AltinnCore.Authentication.Utils;
 
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,6 @@ namespace Altinn.Platform.Receipt.Services
     {
         private readonly HttpClient _client;
         private readonly IHttpContextAccessor _contextaccessor;
-        private readonly PlatformSettings _platformSettings;
         private readonly IAccessTokenGenerator _accessTokenGenerator;
 
         /// <summary>
@@ -31,9 +32,8 @@ namespace Altinn.Platform.Receipt.Services
         /// </summary>
         public RegisterWrapper(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IOptions<PlatformSettings> platformSettings, IAccessTokenGenerator accessTokenGenerator)
         {
-            _platformSettings = platformSettings.Value;
-            httpClient.BaseAddress = new Uri(_platformSettings.ApiRegisterEndpoint);
-            httpClient.DefaultRequestHeaders.Add(_platformSettings.SubscriptionKeyHeaderName, _platformSettings.SubscriptionKey);
+            httpClient.BaseAddress = new Uri(platformSettings.Value.ApiRegisterEndpoint);
+            httpClient.DefaultRequestHeaders.Add(platformSettings.Value.SubscriptionKeyHeaderName, platformSettings.Value.SubscriptionKey);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client = httpClient;
             _contextaccessor = httpContextAccessor;
@@ -50,8 +50,7 @@ namespace Altinn.Platform.Receipt.Services
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                Party party = await response.Content.ReadAsAsync<Party>();
-                return party;
+                return await response.Content.ReadFromJsonAsync<Party>(JsonSerializerOptionsProvider.Options);
             }
 
             throw new PlatformHttpException(response, string.Empty);
