@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 
 using Altinn.Common.AccessTokenClient.Services;
+
 using Altinn.Platform.Receipt.Configuration;
 using Altinn.Platform.Receipt.Filters;
 using Altinn.Platform.Receipt.Health;
@@ -11,7 +12,6 @@ using Altinn.Platform.Receipt.Services;
 using Altinn.Platform.Receipt.Services.Interfaces;
 using Altinn.Platform.Telemetry;
 
-using AltinnCore.Authentication.Constants;
 using AltinnCore.Authentication.JwtCookie;
 
 using Azure.Identity;
