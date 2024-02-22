@@ -3361,14 +3361,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.55":
-  version: 18.2.55
-  resolution: "@types/react@npm:18.2.55"
+"@types/react@npm:18.2.56":
+  version: 18.2.56
+  resolution: "@types/react@npm:18.2.56"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: a8eb4fa77f73831b9112d4f11a7006217dc0740361649b9b0da3fd441d151a9cd415d5d68b91c0af4e430e063424d301c77489e5edaddc9f711c4e46cf9818a5
+  checksum: 8f6d754e4add007667002bd3f4c3a3a577c4a75afcd5cdc93bd3c584750f25c41a024a9f7de802204156483bc2fcce417ff9d7063ac1713e2b8ccb7c8a08c0ff
   languageName: node
   linkType: hard
 
@@ -11966,7 +11966,7 @@ __metadata:
     "@types/jest": 29.5.12
     "@types/jsdom": 21.1.6
     "@types/marked": 5.0.2
-    "@types/react": 18.2.55
+    "@types/react": 18.2.56
     "@types/react-dom": 18.2.19
     "@typescript-eslint/eslint-plugin": 6.21.0
     "@typescript-eslint/parser": 6.21.0
@@ -12006,7 +12006,7 @@ __metadata:
     ts-jest: 29.1.2
     ts-loader: 9.5.1
     typescript: 4.9.5
-    webpack: 5.90.1
+    webpack: 5.90.2
     webpack-cli: 5.1.4
     webpack-dev-server: 4.15.1
   languageName: unknown
@@ -14252,9 +14252,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.90.1":
-  version: 5.90.1
-  resolution: "webpack@npm:5.90.1"
+"webpack@npm:5.90.2":
+  version: 5.90.2
+  resolution: "webpack@npm:5.90.2"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.5
@@ -14285,7 +14285,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: a7be844d5720a0c6282fec012e6fa34b1137dff953c5d48bf2ef066a6c27c1dbc92a9b9effc05ee61c9fe269499266db9782073f2d82a589d3c5c966ffc56584
+  checksum: 4af55f314c3610e0b17afd01960c4cf9d8d90c87a58ef7d7dc7a0a019f48e2bba4eff63b02d9da56fc61df5b04af0d66b3fa4ec82937a780d37a64db84c643fe
   languageName: node
   linkType: hard
 
