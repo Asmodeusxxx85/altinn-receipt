@@ -1,1 +1,1 @@
-export { getLanguageFromCode } from './languages';
+export { languageLookup, getLanguageFromCode } from './languages';

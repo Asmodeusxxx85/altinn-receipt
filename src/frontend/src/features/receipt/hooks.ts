@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
 import type {
   IInstanceContext,
@@ -21,7 +21,7 @@ import {
   getTextResourceUrl,
 } from 'src/utils/receiptUrlHelper';
 import { buildInstanceContext } from 'src/utils/instanceContext';
-import { getLanguageFromCode } from 'src/language';
+import { languageLookup, getLanguageFromCode } from 'src/language';
 import { replaceTextResourceParams } from 'src/utils/language';
 
 interface IMergeLanguageWithOverrides {
@@ -131,6 +131,35 @@ export const useFetchInitialData = () => {
     const appAbortController = new AbortController();
     const textAbortController = new AbortController();
 
+    const fetchTextResources = async (org: string, app: string, languages: string[]): Promise<{ response: AxiosResponse<any>; language: string; }> => {
+      for (const language of languages) {
+        try {
+          const response = await Axios.get(
+            getTextResourceUrl(org, app, language),
+            {
+              signal: textAbortController.signal,
+            },
+          );
+
+          if (response.status == 200 && Array.isArray(response.data.resource)) {
+            return {
+              response: response,
+              language: language,
+            };
+          }
+        } catch (error) {
+          logFetchError(error);
+        }
+      }
+
+      // If none of the languages returned a successful response
+      logFetchError('Text resources not found for any language');
+      return {
+        response: {} as AxiosResponse<any>,
+        language: languages[0],
+      }
+    }
+
     const fetchInitialData = async () => {
       try {
         const [instanceResponse, orgResponse, userResponse] = await Promise.all(
@@ -147,6 +176,11 @@ export const useFetchInitialData = () => {
           ],
         );
 
+        const langs = Object.keys(languageLookup).filter(
+          element => element !== userResponse.data.profileSettingPreference.language
+        ); // Getting all the laguages except the current language
+        langs.unshift(userResponse.data.profileSettingPreference.language); // Putting the current language in the beginning.
+
         const app = instanceResponse.data.instance.appId.split('/')[1];
         const [applicationResponse, appTextResourcesResponse] =
           await Promise.all([
@@ -159,20 +193,12 @@ export const useFetchInitialData = () => {
                 signal: appAbortController.signal,
               },
             ),
-            Axios.get(
-              getTextResourceUrl(
-                instanceResponse.data.instance.org,
-                app,
-                userResponse.data.profileSettingPreference.language,
-              ),
-              {
-                signal: textAbortController.signal,
-              },
-            ),
+            fetchTextResources(instanceResponse.data.instance.org, app, langs),
           ]);
 
+        userResponse.data.profileSettingPreference.language = appTextResourcesResponse.language;
         setApplication(applicationResponse.data);
-        setTextResources(appTextResourcesResponse.data.resources);
+        setTextResources(appTextResourcesResponse.response.data.resources);
         setParty(instanceResponse.data.party);
         setInstance(instanceResponse.data.instance);
         setOrganisations(orgResponse.data.orgs);
