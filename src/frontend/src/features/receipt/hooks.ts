@@ -145,6 +145,8 @@ export const useFetchInitialData = () => {
           }
 
           const language = languages[index];
+          console.log("Language to get:");
+          console.log(language);
           try {
             const response = await Axios.get(
               getTextResourceUrl(org, app, language),
@@ -152,7 +154,8 @@ export const useFetchInitialData = () => {
                 signal: textAbortController.signal,
               }
             );
-
+            console.log("Response from API:");
+            console.log(response);
             if (response.status === 200 && Array.isArray(response.data.resources)) {
               resolve({ response, language });
             } else {
@@ -186,10 +189,18 @@ export const useFetchInitialData = () => {
           ],
         );
 
+        console.log("Language Look Up table:");
+        console.log(languageLookup);
+        console.log("User reponse with all the data:");
+        console.log(userResponse);
         const langs = Object.keys(languageLookup).filter(
           element => element !== userResponse.data.profileSettingPreference.language
         ); // Getting all the laguages except the current language
+        console.log("Languages after filtering:");
+        console.log(langs);
         langs.unshift(userResponse.data.profileSettingPreference.language); // Putting the current language in the beginning.
+        console.log("Languages after adding the current lang:");
+        console.log(langs);
 
         const app = instanceResponse.data.instance.appId.split('/')[1];
         const [applicationResponse, appTextResourcesResponse] =
