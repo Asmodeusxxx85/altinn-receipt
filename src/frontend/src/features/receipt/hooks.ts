@@ -141,7 +141,7 @@ export const useFetchInitialData = () => {
             },
           );
 
-          if (response.status == 200 && Array.isArray(response.data.resource)) {
+          if (response.status == 200 && Array.isArray(response.data.resources)) {
             return {
               response: response,
               language: language,
