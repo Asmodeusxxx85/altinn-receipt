@@ -193,6 +193,10 @@ export const useFetchInitialData = () => {
         console.log(languageLookup);
         console.log("User reponse with all the data:");
         console.log(userResponse);
+        console.log("User profile API:");
+        console.log(getUserUrl());
+        console.log("Language coming from API:");
+        console.log(userResponse.data.profileSettingPreference.language);
         const langs = Object.keys(languageLookup).filter(
           element => element !== userResponse.data.profileSettingPreference.language
         ); // Getting all the laguages except the current language
