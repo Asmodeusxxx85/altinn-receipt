@@ -131,34 +131,44 @@ export const useFetchInitialData = () => {
     const appAbortController = new AbortController();
     const textAbortController = new AbortController();
 
-    const fetchTextResources = async (org: string, app: string, languages: string[]): Promise<{ response: AxiosResponse<any>; language: string; }> => {
-      for (const language of languages) {
-        try {
-          const response = await Axios.get(
-            getTextResourceUrl(org, app, language),
-            {
-              signal: textAbortController.signal,
-            },
-          );
-
-          if (response.status == 200 && Array.isArray(response.data.resources)) {
-            return {
-              response: response,
-              language: language,
-            };
+    const fetchTextResources = (
+      org: string,
+      app: string,
+      languages: string[]
+    ): Promise<{ response: AxiosResponse<any>; language: string; }> => {
+      return new Promise<{ response: AxiosResponse<any>; language: string; }>((resolve, reject) => {
+        const fetchNextLanguage = async (index: number): Promise<void> => {
+          if (index >= languages.length) {
+            // If all languages failed, reject the promise
+            logFetchError('Text resources not found for any language');
+            return;
           }
-        } catch (error) {
-          logFetchError(error);
-        }
-      }
 
-      // If none of the languages returned a successful response
-      logFetchError('Text resources not found for any language');
-      return {
-        response: {} as AxiosResponse<any>,
-        language: languages[0],
-      }
-    }
+          const language = languages[index];
+          try {
+            const response = await Axios.get(
+              getTextResourceUrl(org, app, language),
+              {
+                signal: textAbortController.signal,
+              }
+            );
+
+            if (response.status === 200 && Array.isArray(response.data.resources)) {
+              resolve({ response, language });
+            } else {
+              // If the response is not successful, try the next language
+              await fetchNextLanguage(index + 1);
+            }
+          } catch (error) {
+            logFetchError(error);
+            // If an error occurs, try the next language
+            await fetchNextLanguage(index + 1);
+          }
+        };
+
+        fetchNextLanguage(0); // Start with the first language
+      });
+    };
 
     const fetchInitialData = async () => {
       try {
