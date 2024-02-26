@@ -217,7 +217,6 @@ export const useFetchInitialData = () => {
             fetchTextResources(instanceResponse.data.instance.org, app, langs),
           ]);
 
-        userResponse.data.profileSettingPreference.language = appTextResourcesResponse.language;
         setApplication(applicationResponse.data);
         setTextResources(appTextResourcesResponse.response.data.resources);
         setParty(instanceResponse.data.party);
