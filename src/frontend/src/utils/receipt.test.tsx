@@ -145,10 +145,10 @@ describe('utils > receipt', () => {
       expect(result).toEqual({});
     });
 
-    it('should display appOwner name from text resources if defined', () => {
+    it('should display appReceiver name from text resources if defined', () => {
       const textResourceWithAppOwner: ITextResource[] = [
         {
-          id: 'appOwner',
+          id: 'appReceiver',
           value: 'Name from resources',
         },
       ];
