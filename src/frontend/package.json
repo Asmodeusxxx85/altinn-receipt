@@ -37,7 +37,7 @@
     "@types/marked": "5.0.2",
     "@types/react": "18.2.58",
     "@types/react-dom": "18.2.19",
-    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/eslint-plugin": "7.0.2",
     "@typescript-eslint/parser": "7.0.2",
     "altinn-designsystem": "4.2.0",
     "babel-jest": "29.7.0",
