@@ -71,7 +71,7 @@
     "undici": "^5.28.3",
     "webpack": "5.90.3",
     "webpack-cli": "5.1.4",
-    "webpack-dev-server": "4.15.1"
+    "webpack-dev-server": "5.0.2"
   },
   "packageManager": "yarn@3.8.0",
   "jest": {
