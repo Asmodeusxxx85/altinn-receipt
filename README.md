@@ -9,35 +9,54 @@ These instructions will get you a copy of the receipt component up and running o
 
 ### Prerequisites
 
-1. [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+1. [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 2. [Node LTS](https://nodejs.org/en/)
 3. Code editor of your choice
 4. Newest [Git](https://git-scm.com/downloads)
 5. [Docker CE](https://www.docker.com/get-docker)
 6. Solution is cloned
 
-#### Platform Receipt
+#### Running Platform Receipt Locally
 
-The platform receipt component can run locally, both in docker and manually.
+The platform receipt component need to be run in **Docker**.
 
-##### Start localtest and app
+__Prerequisite__
+1. This **Receipt** needs `app-localtest` for backend services. Before starting the `app-localtest` some modification woul dbe needed in the docker-compose.yml file to set a couple of environment variables.
+2. Also an app from **Altinn Studio** is needed for creating data that should be presented in the **Receipt**. 
 
-Receipt needs localtest for backend services. Start this as explained under app settings.
-Also use an app for creating data that should be presented in receipt.
+__Process__
 
-##### Manual
+1. **`app-localtest`**: Before starting `app-localtest` add these below lines to the `environment` section of `altinn_localtest` in the `docker-compose.yml` file of the **`app-localtest`**:
+    ```
+    - PlatformSettings__ApiAuthorizationEndpoint=http://host.docker.internal:5101/authorization/api/v1/
+    - AuthnGeneralSettings__PlatformEndpoint=http://host.docker.internal:5101/
+    ```
+    After adding these the section `altinn_localtest` in the `docker-compose.yml` file of the **`app-localtest`** will look like this:
+    ```
+    altinn_localtest:
+        container_name: localtest
+        image: localtest:latest
+        restart: always
+        networks:
+            - altinntestlocal_network
+        ports:
+            - "5101:5101"
+        build:
+        context: .
+        environment:
+            - DOTNET_ENVIRONMENT=Docker
+            - ASPNETCORE_URLS=http://*:5101/
+            - GeneralSettings__BaseUrl=http://${TEST_DOMAIN:-local.altinn.cloud}:${ALTINN3LOCAL_PORT:-80}
+            - GeneralSettings__HostName=${TEST_DOMAIN:-local.altinn.cloud}
+            - PlatformSettings__ApiAuthorizationEndpoint=http://host.docker.internal:5101/authorization/api/v1/
+            - AuthnGeneralSettings__PlatformEndpoint=http://host.docker.internal:5101/
+        volumes:
+            - ./testdata:/testdata
+            - ${ALTINN3LOCALSTORAGE_PATH:-AltinnPlatformLocal}:/AltinnPlatformLocal
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+    ```
 
-- Open `src/backend/Altinn.Receipt/Views/Receipt/receipt.cshtml` and change the `link` and `script` tags according to the comments in that file.
-- Open a terminal in `src/backend/Altinn.Receipt`
-- Execute `dotnet run` and keep the process running
-
-- Open another terminal in `src/frontend`
-- Execute `yarn --immutable` (only required first time, or when dependencies in package.json changes)
-- Execute `yarn start`
-
-The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
-Making changes to the frontend code will automatically recompile and reload the browser with the updated changes.
-
-
-The application should now be available at `altinn3local.no/receipt/{instanceOwnerId}/{instanceId}`.
-If you make changes to the code, you will need to rerun `docker-compose up --build`.
+2. Start the app you have made in the **Altinn Studio** and run it. Check if this app is working fine with the `app-localtest` backend service.
+3. Then go to the altinn-receipt directory and run `docker-compose up --build`. If you make changes to the code, you will need to re-run `docker-compose up --build` to see the change in action.
+4. The application should now be available at `local.altinn.cloud/receipt/{instanceOwnerId}/{instanceId}`. You'll find the `{instanceOwnerId}` and `{instanceId}` in the URL after you successfully submitted the **Altinn Studio** app form.

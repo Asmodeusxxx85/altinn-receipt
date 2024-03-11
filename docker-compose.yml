@@ -14,13 +14,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5060
-      - PlatformSettings:ApiProfileEndpoint=https://platform.at22.altinn.cloud/profile/api/v1/
-      - PlatformSettings:ApiAuthenticationEndpoint=https://platform.at22.altinn.cloud/authentication/api/v1/
-      - GeneralSettings:OpenIdWellKnownEndpoint=http://localhost:5101/authentication/api/v1/openid/
+      - PlatformSettings:ApiProfileEndpoint=http://host.docker.internal:5101/profile/api/v1/
+      - PlatformSettings:ApiAuthenticationEndpoint=http://host.docker.internal:5101//authentication/api/v1/
+      - PlatformSettings:ApiRegisterEndpoint=http://host.docker.internal:5101/register/api/v1/
+      - PlatformSettings:ApiStorageEndpoint=http://host.docker.internal:5101/storage/api/v1/
+      - GeneralSettings:OpenIdWellKnownEndpoint=http://host.docker.internal:5101/authentication/api/v1/openid/
       - GeneralSettings:Hostname=at22.altinn.cloud
       - GeneralSettings:RuntimeCookieName=AltinnStudioRuntime
     ports:
       - "5060:5060"
+    extra_hosts:
+      - host.docker.internal:host-gateway
     build:
       context: .
       dockerfile: Dockerfile
