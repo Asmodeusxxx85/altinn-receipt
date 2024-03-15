@@ -204,6 +204,10 @@ export interface IProfileSettingPreference {
   doNotPromptForParty: boolean;
 }
 
+export interface IUserCookieLanguage {
+  language: string;
+}
+
 export interface ISelfLinks {
   apps: string;
   platform: string;

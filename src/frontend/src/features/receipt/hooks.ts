@@ -8,6 +8,7 @@ import type {
   IInstance,
   IParty,
   IProfile,
+  IUserCookieLanguage,
   IExtendedInstance,
   ITextResource,
   IAltinnOrgs,
@@ -17,6 +18,7 @@ import {
   altinnOrganisationsUrl,
   getApplicationMetadataUrl,
   getUserUrl,
+  getUserLanguageUrl,
   getExtendedInstanceUrl,
   getTextResourceUrl,
 } from 'src/utils/receiptUrlHelper';
@@ -128,6 +130,7 @@ export const useFetchInitialData = () => {
     const instanceAbortController = new AbortController();
     const orgAbortController = new AbortController();
     const userAbortController = new AbortController();
+    const languageAbortController = new AbortController();
     const appAbortController = new AbortController();
     const textAbortController = new AbortController();
 
@@ -173,7 +176,7 @@ export const useFetchInitialData = () => {
 
     const fetchInitialData = async () => {
       try {
-        const [instanceResponse, orgResponse, userResponse] = await Promise.all(
+        const [instanceResponse, orgResponse, userResponse, userLanguage] = await Promise.all(
           [
             Axios.get<IExtendedInstance>(getExtendedInstanceUrl(), {
               signal: instanceAbortController.signal,
@@ -184,8 +187,15 @@ export const useFetchInitialData = () => {
             Axios.get<IProfile>(getUserUrl(), {
               signal: userAbortController.signal,
             }),
+            Axios.get<IUserCookieLanguage>(getUserLanguageUrl(), {
+              signal: languageAbortController.signal,
+            }),
           ],
         );
+
+        if (userLanguage.status === 200 && userLanguage.data.language != "") {
+          userResponse.data.profileSettingPreference.language = userLanguage.data.language
+        }
 
         const langs = Object.keys(languageLookup).filter(
           element => element !== userResponse.data.profileSettingPreference.language

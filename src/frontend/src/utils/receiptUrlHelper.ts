@@ -31,6 +31,10 @@ export function getUserUrl() {
   return `${window.location.origin}/receipt/api/v1/users/current`;
 }
 
+export function getUserLanguageUrl() {
+  return `${window.location.origin}/receipt/api/v1/users/current/language`;
+}
+
 export function getTextResourceUrl(org: string, app: string, language: string) {
   return `${window.location.origin}/storage/api/v1/applications/${org}/${app}/texts/${language}`;
 }

@@ -15,6 +15,7 @@ using Altinn.Platform.Receipt.Tests.Testdata;
 using AltinnCore.Authentication.Constants;
 using AltinnCore.Authentication.JwtCookie;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ namespace Altinn.Platform.Receipt.Tests
         private readonly Mock<IRegister> _registerMock;
         private readonly Mock<IStorage> _storageMock;
         private readonly Mock<IProfile> _profileMock;
+        private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="ReceiptControllerTests"/> class with the given WebApplicationFactory.
@@ -46,6 +48,7 @@ namespace Altinn.Platform.Receipt.Tests
             _registerMock = new Mock<IRegister>();
             _storageMock = new Mock<IStorage>();
             _profileMock = new Mock<IProfile>();
+            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
         }
 
         [Fact]
@@ -93,6 +96,23 @@ namespace Altinn.Platform.Receipt.Tests
 
             HttpResponseMessage response = await client.GetAsync(url);
             Assert.Equal(System.Net.HttpStatusCode.Forbidden, response.StatusCode);
+        }
+
+        [Fact]
+        public async void GetCurrentUserLanguage_TC01_NoCookie_ReturnsNoContent()
+        {
+            _profileMock
+           .Setup(p => p.GetUser(It.IsAny<int>()))
+           .ReturnsAsync(UserProfiles.User1);
+
+            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string url = $"{BasePath}users/current/language";
+
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [Fact]
