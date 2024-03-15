@@ -12253,12 +12253,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-content-loader@npm:6.2.1":
-  version: 6.2.1
-  resolution: "react-content-loader@npm:6.2.1"
+"react-content-loader@npm:7.0.0":
+  version: 7.0.0
+  resolution: "react-content-loader@npm:7.0.0"
   peerDependencies:
     react: ">=16.0.0"
-  checksum: f777d408256a4218677e47f4cf3988d9fd8e556450e9b85ee1eb3952a5d5802573cea0df5eaf4dbc936c9522f355657de6f8ab0ecdf035d7dccdef15b45c9dae
+  checksum: 082e4e022718c2c8aeed2cdcf10a30c0c70ba293edfdbe9a8525db7f420a517c5896392ef3e408ba27836b41e4be4fc9fec52486db9bd206b70ccf335c3e18bb
   languageName: node
   linkType: hard
 
@@ -12427,7 +12427,7 @@ __metadata:
     msw: 2.2.2
     prettier: 3.2.5
     react: 18.2.0
-    react-content-loader: 6.2.1
+    react-content-loader: 7.0.0
     react-dom: 18.2.0
     rimraf: 5.0.5
     source-map-loader: 5.0.0
