@@ -3441,12 +3441,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.21":
-  version: 18.2.21
-  resolution: "@types/react-dom@npm:18.2.21"
+"@types/react-dom@npm:18.2.22":
+  version: 18.2.22
+  resolution: "@types/react-dom@npm:18.2.22"
   dependencies:
     "@types/react": "*"
-  checksum: 0ff00aedf5ffad90ed226c0ab0acdca609804c81af5dbde0d13a4ae53dac6bd92f85f1adc032c42966ec2e9417d13d18a41767434afa4d8c1979cad57348191b
+  checksum: 83bb3ddcd7894f20a9a6cbc2befe75d8b76984734020c455b4c50cad625a4025250d8e1d247ef6264e484d47d5a94f2dd11f77c1dcac6a5de998cb447d85b720
   languageName: node
   linkType: hard
 
@@ -3479,14 +3479,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.65":
-  version: 18.2.65
-  resolution: "@types/react@npm:18.2.65"
+"@types/react@npm:18.2.66":
+  version: 18.2.66
+  resolution: "@types/react@npm:18.2.66"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 1931a8b36e3135f3058e988cfc0d4ffe4b75af10b8efcf8b7e5759934333922162394edff9ccf8aff838e8db62de014c015c9c094597fdf9ca1405ac1d040fdf
+  checksum: 266cdd046bd1bb4f1e2d07bba305e1264e91bedcb9e8643e303fc80468f3cf0860c82982589c67fc07a10f5496eb04c1cc2bf8283484f27a605c2651c6c8f3f3
   languageName: node
   linkType: hard
 
@@ -4633,14 +4633,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.6.7":
-  version: 1.6.7
-  resolution: "axios@npm:1.6.7"
+"axios@npm:1.6.8":
+  version: 1.6.8
+  resolution: "axios@npm:1.6.8"
   dependencies:
-    follow-redirects: ^1.15.4
+    follow-redirects: ^1.15.6
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: 87d4d429927d09942771f3b3a6c13580c183e31d7be0ee12f09be6d5655304996bb033d85e54be81606f4e89684df43be7bf52d14becb73a12727bf33298a082
+  checksum: bf007fa4b207d102459300698620b3b0873503c6d47bf5a8f6e43c0c64c90035a4f698b55027ca1958f61ab43723df2781c38a99711848d232cad7accbcdfcdd
   languageName: node
   linkType: hard
 
@@ -7050,9 +7050,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.34.0":
-  version: 7.34.0
-  resolution: "eslint-plugin-react@npm:7.34.0"
+"eslint-plugin-react@npm:7.34.1":
+  version: 7.34.1
+  resolution: "eslint-plugin-react@npm:7.34.1"
   dependencies:
     array-includes: ^3.1.7
     array.prototype.findlast: ^1.2.4
@@ -7074,7 +7074,7 @@ __metadata:
     string.prototype.matchall: ^4.0.10
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 9c110a881973e8b795149987382db62411bf5071355a8ec71b900ad5cf18233c44cc65dee23bc55544882b9474fc95487a4a1cb26f7b15f93e4f6d365fb0cd0a
+  checksum: 82f391c5a093235c3bc2f664c54e009c49460778ee7d1b86c1536df9ac4d2a80d1dedc9241ac797df4a9dced936e955d9c89042fb3ac8d017b5359d1320d3c0f
   languageName: node
   linkType: hard
 
@@ -7596,13 +7596,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.4":
-  version: 1.15.4
-  resolution: "follow-redirects@npm:1.15.4"
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.6
+  resolution: "follow-redirects@npm:1.15.6"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: e178d1deff8b23d5d24ec3f7a94cde6e47d74d0dc649c35fc9857041267c12ec5d44650a0c5597ef83056ada9ea6ca0c30e7c4f97dbf07d035086be9e6a5b7b6
+  checksum: a62c378dfc8c00f60b9c80cab158ba54e99ba0239a5dd7c81245e5a5b39d10f0c35e249c3379eae719ff0285fff88c365dd446fab19dee771f1d76252df1bbf5
   languageName: node
   linkType: hard
 
@@ -11072,9 +11072,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:2.2.3":
-  version: 2.2.3
-  resolution: "msw@npm:2.2.3"
+"msw@npm:2.2.7":
+  version: 2.2.7
+  resolution: "msw@npm:2.2.7"
   dependencies:
     "@bundled-es-modules/cookie": ^2.0.0
     "@bundled-es-modules/statuses": ^1.0.1
@@ -11100,7 +11100,7 @@ __metadata:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: 0a58d5c78d7926a0226bd151ed81b2d4f3b9bda4aa8820669ea2b1462eda131b724515e714551f6ab257c113e1e3bf1c0f07a7bc8a17620b993186760cfc167a
+  checksum: 9a9c12a59fabe56634558a9831bae46a83c306cd828a903f0df4f6ca38724466e1f5b3b217737a787c20a30c713b83676a14bef69e22820da5805ab7381a5163
   languageName: node
   linkType: hard
 
@@ -12395,12 +12395,12 @@ __metadata:
     "@types/jest": 29.5.12
     "@types/jsdom": 21.1.6
     "@types/marked": 5.0.2
-    "@types/react": 18.2.65
-    "@types/react-dom": 18.2.21
+    "@types/react": 18.2.66
+    "@types/react-dom": 18.2.22
     "@typescript-eslint/eslint-plugin": 7.2.0
     "@typescript-eslint/parser": 7.2.0
     altinn-designsystem: 4.2.0
-    axios: 1.6.7
+    axios: 1.6.8
     babel-jest: 29.7.0
     babel-loader: 9.1.3
     classnames: 2.5.1
@@ -12412,7 +12412,7 @@ __metadata:
     eslint-import-resolver-typescript: 3.6.1
     eslint-plugin-import: 2.29.1
     eslint-plugin-jsx-a11y: 6.8.0
-    eslint-plugin-react: 7.34.0
+    eslint-plugin-react: 7.34.1
     eslint-plugin-react-hooks: 4.6.0
     fork-ts-checker-notifier-webpack-plugin: 9.0.0
     fork-ts-checker-webpack-plugin: 9.0.2
@@ -12424,7 +12424,7 @@ __metadata:
     marked: 12.0.1
     mini-css-extract-plugin: 2.8.1
     moment: 2.30.1
-    msw: 2.2.3
+    msw: 2.2.7
     prettier: 3.2.5
     react: 18.2.0
     react-content-loader: 7.0.0
@@ -12438,7 +12438,7 @@ __metadata:
     undici: ^5.28.3
     webpack: 5.90.3
     webpack-cli: 5.1.4
-    webpack-dev-server: 5.0.2
+    webpack-dev-server: 5.0.3
   languageName: unknown
   linkType: soft
 
@@ -14662,9 +14662,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-server@npm:5.0.2":
-  version: 5.0.2
-  resolution: "webpack-dev-server@npm:5.0.2"
+"webpack-dev-server@npm:5.0.3":
+  version: 5.0.3
+  resolution: "webpack-dev-server@npm:5.0.3"
   dependencies:
     "@types/bonjour": ^3.5.13
     "@types/connect-history-api-fallback": ^1.5.4
@@ -14705,7 +14705,7 @@ __metadata:
       optional: true
   bin:
     webpack-dev-server: bin/webpack-dev-server.js
-  checksum: d10624915ed25772317a3bd5d487c5fa17c74c2dc30d3abf5514c531a561aa0eaf5bb5b6a12416ee7005e2eea3679dc1616daf2eac69442dd3c579ce9150378b
+  checksum: e47542e9e199f3cb4b24488ac8c7cdd083a396a9bb16aa8fcf992a0a3dee76003f0278019c7b6b04e1881b05359fa83968e39b07462d8fb21cebc29db84d3255
   languageName: node
   linkType: hard
 
