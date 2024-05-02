@@ -3055,9 +3055,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:15.0.3":
-  version: 15.0.3
-  resolution: "@testing-library/react@npm:15.0.3"
+"@testing-library/react@npm:15.0.5":
+  version: 15.0.5
+  resolution: "@testing-library/react@npm:15.0.5"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@testing-library/dom": ^10.0.0
@@ -3065,7 +3065,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: edeb8fc90ef9e91d6971dd506974ae3502414ae2ebf961f6949ad1d1d78c9c69a8b895b4fa6b239ef6e8e09325c8da8df1f73786a5b058baf8b128b0d59c304d
+  checksum: 7d57e332c58a25df0519d329db07548ad9a147a88912ab6472e294995c06c77445113c5cdae33218daa349f24973a7777426dc1216ce6ed9a36b16fc5ed78d65
   languageName: node
   linkType: hard
 
@@ -3465,12 +3465,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.25":
-  version: 18.2.25
-  resolution: "@types/react-dom@npm:18.2.25"
+"@types/react-dom@npm:18.3.0":
+  version: 18.3.0
+  resolution: "@types/react-dom@npm:18.3.0"
   dependencies:
     "@types/react": "*"
-  checksum: 85f9278d6456c6cdc76da6806a33b472588cdd029b08dde32e8b5636b25a3eae529b4ac2e08c848a3d7ca44e4e97ee9a3df406c96fa0768de935c8eed6e07590
+  checksum: a0cd9b1b815a6abd2a367a9eabdd8df8dd8f13f95897b2f9e1359ea3ac6619f957c1432ece004af7d95e2a7caddbba19faa045f831f32d6263483fc5404a7596
   languageName: node
   linkType: hard
 
@@ -3503,13 +3503,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.79":
-  version: 18.2.79
-  resolution: "@types/react@npm:18.2.79"
+"@types/react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "@types/react@npm:18.3.1"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: 85aa96e0e88725c84d8fc5f04f10a4da6a1f507dde33557ac9cc211414756867721264bfefd9e02bae1288ce2905351d949b652b931e734ea24519ee5c625138
+  checksum: 9224ef319a0c2b7f66e7e7f06012aa5eb638a6c76c9742843eab1a5d243f2bed5ff829ddbb41efd60d33a266420528adfcb84cb93f238b00e905f98c3a355768
   languageName: node
   linkType: hard
 
@@ -6356,10 +6356,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:3.1.0":
-  version: 3.1.0
-  resolution: "dompurify@npm:3.1.0"
-  checksum: 06fc76607cd076e394b2ea5479ab6f0407b8fedb6877ae95e94207b878365e5e1cd914055dacce152a5f419818afb8d4cd284b780246cf35363f0747c179a0ba
+"dompurify@npm:3.1.1":
+  version: 3.1.1
+  resolution: "dompurify@npm:3.1.1"
+  checksum: a6077018b2f86c3dbb77326a978b32dbd169492d3835c6b990140f67805ffd23e223f30222c888cb7a8fa10db1154be6cfd213beb6c38e3270ecba5b2a97ab5c
   languageName: node
   linkType: hard
 
@@ -7067,12 +7067,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:4.6.0":
-  version: 4.6.0
-  resolution: "eslint-plugin-react-hooks@npm:4.6.0"
+"eslint-plugin-react-hooks@npm:4.6.2":
+  version: 4.6.2
+  resolution: "eslint-plugin-react-hooks@npm:4.6.2"
   peerDependencies:
     eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-  checksum: 23001801f14c1d16bf0a837ca7970d9dd94e7b560384b41db378b49b6e32dc43d6e2790de1bd737a652a86f81a08d6a91f402525061b47719328f586a57e86c3
+  checksum: 395c433610f59577cfcf3f2e42bcb130436c8a0b3777ac64f441d88c5275f4fcfc89094cedab270f2822daf29af1079151a7a6579a8e9ea8cee66540ba0384c4
   languageName: node
   linkType: hard
 
@@ -12303,15 +12303,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
+"react-dom@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
   dependencies:
     loose-envify: ^1.1.0
-    scheduler: ^0.23.0
+    scheduler: ^0.23.2
   peerDependencies:
-    react: ^18.2.0
-  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+    react: ^18.3.1
+  checksum: 298954ecd8f78288dcaece05e88b570014d8f6dce5db6f66e6ee91448debeb59dcd31561dddb354eee47e6c1bb234669459060deb238ed0213497146e555a0b9
   languageName: node
   linkType: hard
 
@@ -12358,12 +12358,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
+  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
   languageName: node
   linkType: hard
 
@@ -12430,14 +12430,14 @@ __metadata:
     "@babel/preset-react": 7.24.1
     "@material-ui/core": 4.12.4
     "@testing-library/jest-dom": 6.4.2
-    "@testing-library/react": 15.0.3
+    "@testing-library/react": 15.0.5
     "@testing-library/user-event": 14.5.2
     "@types/dompurify": 3.0.5
     "@types/jest": 29.5.12
     "@types/jsdom": 21.1.6
     "@types/marked": 6.0.0
-    "@types/react": 18.2.79
-    "@types/react-dom": 18.2.25
+    "@types/react": 18.3.1
+    "@types/react-dom": 18.3.0
     "@typescript-eslint/eslint-plugin": 7.7.1
     "@typescript-eslint/parser": 7.7.1
     altinn-designsystem: 4.2.0
@@ -12447,14 +12447,14 @@ __metadata:
     classnames: 2.5.1
     cross-env: 7.0.3
     css-loader: 7.1.1
-    dompurify: 3.1.0
+    dompurify: 3.1.1
     eslint: 9.1.1
     eslint-config-prettier: 9.1.0
     eslint-import-resolver-typescript: 3.6.1
     eslint-plugin-import: 2.29.1
     eslint-plugin-jsx-a11y: 6.8.0
     eslint-plugin-react: 7.34.1
-    eslint-plugin-react-hooks: 4.6.0
+    eslint-plugin-react-hooks: 4.6.2
     fork-ts-checker-notifier-webpack-plugin: 9.0.0
     fork-ts-checker-webpack-plugin: 9.0.2
     html-react-parser: 5.1.10
@@ -12467,9 +12467,9 @@ __metadata:
     moment: 2.30.1
     msw: 2.2.14
     prettier: 3.2.5
-    react: 18.2.0
+    react: 18.3.1
     react-content-loader: 7.0.0
-    react-dom: 18.2.0
+    react-dom: 18.3.1
     rimraf: 5.0.5
     source-map-loader: 5.0.0
     terser-webpack-plugin: 5.3.10
@@ -13025,12 +13025,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "scheduler@npm:0.23.0"
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  checksum: 3e82d1f419e240ef6219d794ff29c7ee415fbdc19e038f680a10c067108e06284f1847450a210b29bbaf97b9d8a97ced5f624c31c681248ac84c80d56ad5a2c4
   languageName: node
   linkType: hard
 
