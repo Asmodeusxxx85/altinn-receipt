@@ -11,18 +11,26 @@ These instructions will get you a copy of the receipt component up and running o
 
 1. [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 2. [Node LTS](https://nodejs.org/en/)
-3. Code editor of your choice
-4. Newest [Git](https://git-scm.com/downloads)
-5. [Docker CE](https://www.docker.com/get-docker)
-6. Solution is cloned
+3. Newest [Git](https://git-scm.com/downloads)
+4. A code editor - we like [Visual Studio Code](https://code.visualstudio.com/download)
+   - Also install [recommended extensions](https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions) (e.g. [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp))
+5. [Podman](https://podman.io/) or another container tool such as Docker Desktop
 
 #### Running Platform Receipt Locally
 
 The platform receipt component need to be run in **Docker**.
 
+### Cloning the application
+Clone [Altinn Receipt repo](https://github.com/Altinn/altinn-receipt) and navigate to the folder.
+
+```bash
+git clone https://github.com/Altinn/altinn-receipt
+cd altinn-receipt
+```
 __Prerequisite__
 1. This **Receipt** needs `app-localtest` for backend services. Before starting the `app-localtest` some modification woul dbe needed in the docker-compose.yml file to set a couple of environment variables.
 2. Also an app from **Altinn Studio** is needed for creating data that should be presented in the **Receipt**. 
+
 
 __Process__
 
@@ -58,5 +66,5 @@ __Process__
     ```
 
 2. Start the app you have made in the **Altinn Studio** and run it. Check if this app is working fine with the `app-localtest` backend service.
-3. Then go to the altinn-receipt directory and run `docker-compose up --build`. If you make changes to the code, you will need to re-run `docker-compose up --build` to see the change in action.
+3. Then go to the altinn-receipt directory and run `podman compose up -d --build`. If you make changes to the code, you will need to re-run `podman compose up -d --build` to see the change in action.
 4. The application should now be available at `local.altinn.cloud/receipt/{instanceOwnerId}/{instanceId}`. You'll find the `{instanceOwnerId}` and `{instanceId}` in the URL after you successfully submitted the **Altinn Studio** app form.
