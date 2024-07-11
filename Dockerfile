@@ -1,4 +1,4 @@
-FROM node:alpine3.17 AS build-receipt-frontend
+FROM node:alpine3.20 AS build-receipt-frontend
 
 WORKDIR /build
 
@@ -17,7 +17,7 @@ RUN yarn --immutable
 RUN yarn run build
 
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0.301-alpine3.18 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0.303-alpine3.20 AS build
 
 # Copy receipt backend
 WORKDIR /Receipt/
@@ -29,7 +29,7 @@ RUN dotnet build Altinn.Platform.Receipt.csproj -c Release -o /app_output
 RUN dotnet publish Altinn.Platform.Receipt.csproj -c Release -o /app_output
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.6-alpine3.18 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.7-alpine3.20 AS final
 EXPOSE 5060
 WORKDIR /app
 COPY --from=build /app_output .
