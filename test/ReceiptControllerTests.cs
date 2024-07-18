@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 using Altinn.Platform.Profile.Models;
 using Altinn.Platform.Receipt.Helpers;
@@ -26,267 +27,266 @@ using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Altinn.Platform.Receipt.Tests
+namespace Altinn.Platform.Receipt.Tests;
+
+public class ReceiptControllerTests : IClassFixture<WebApplicationFactory<ReceiptController>>
 {
-    public class ReceiptControllerTests : IClassFixture<WebApplicationFactory<ReceiptController>>
+    private const string BasePath = "/receipt/api/v1/";
+
+    private readonly WebApplicationFactory<ReceiptController> _factory;
+    private readonly Mock<IRegister> _registerMock;
+    private readonly Mock<IStorage> _storageMock;
+    private readonly Mock<IProfile> _profileMock;
+    private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+
+    /// <summary>
+    /// Initialises a new instance of the <see cref="ReceiptControllerTests"/> class with the given WebApplicationFactory.
+    /// </summary>
+    /// <param name="factory">The WebApplicationFactory to use when creating a test server.</param>
+    public ReceiptControllerTests(WebApplicationFactory<ReceiptController> factory)
     {
-        private const string BasePath = "/receipt/api/v1/";
+        _factory = factory;
+        _registerMock = new Mock<IRegister>();
+        _storageMock = new Mock<IStorage>();
+        _profileMock = new Mock<IProfile>();
+        _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+    }
 
-        private readonly WebApplicationFactory<ReceiptController> _factory;
-        private readonly Mock<IRegister> _registerMock;
-        private readonly Mock<IStorage> _storageMock;
-        private readonly Mock<IProfile> _profileMock;
-        private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+    [Fact]
+    public async Task GetCurrentUser_TC01_AuthenticatedUser()
+    {
+        _profileMock
+       .Setup(p => p.GetUser(It.IsAny<int>()))
+       .ReturnsAsync(UserProfiles.User1);
 
-        /// <summary>
-        /// Initialises a new instance of the <see cref="ReceiptControllerTests"/> class with the given WebApplicationFactory.
-        /// </summary>
-        /// <param name="factory">The WebApplicationFactory to use when creating a test server.</param>
-        public ReceiptControllerTests(WebApplicationFactory<ReceiptController> factory)
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}users/current";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        UserProfile actual = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.IsType<UserProfile>(actual);
+    }
+
+    [Fact]
+    public async Task GetCurrentUser_TC02_MissingUserClaim()
+    {
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(-1));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}users/current";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task GetCurrentUser_TC03_ServiceThrowsException()
+    {
+        _profileMock
+         .Setup(p => p.GetUser(It.IsAny<int>()))
+         .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.Forbidden }, string.Empty));
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}users/current";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        Assert.Equal(System.Net.HttpStatusCode.Forbidden, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetCurrentUserLanguage_TC01_NoCookie_ReturnsNoContent()
+    {
+        _profileMock
+       .Setup(p => p.GetUser(It.IsAny<int>()))
+       .ReturnsAsync(UserProfiles.User1);
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}users/current/language";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+
+        Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetInstanceIncludeParty_TC01_IncludePartyFalse()
+    {
+        int instanceOwnerId = 123456;
+        Guid instanceGuid = Guid.NewGuid();
+        bool includeParty = false;
+
+        _registerMock.Setup(r =>
+        r.GetParty(It.IsAny<int>()))
+            .ReturnsAsync(Parties.Party1);
+
+        _storageMock.Setup(s =>
+        s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
+            .ReturnsAsync(Instances.Instance1);
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.Null(actual.Party);
+        Assert.NotNull(actual.Instance);
+        Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
+    }
+    
+    [Fact]
+    public async Task GetInstanceIncludeParty_TC02_IncludePartyTrue()
+    {
+        int instanceOwnerId = 123456;
+        Guid instanceGuid = Guid.NewGuid();
+        bool includeParty = true;
+
+        _registerMock.Setup(r =>
+        r.GetParty(It.IsAny<int>()))
+            .ReturnsAsync(Parties.Party1);
+
+        _storageMock.Setup(s =>
+        s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
+            .ReturnsAsync(Instances.Instance1);
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(actual.Party);
+        Assert.NotNull(actual.Instance);
+        Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
+        Assert.Equal(Parties.Party1.PartyTypeName, actual.Party.PartyTypeName);
+    }
+
+    [Fact]
+    public async Task GetInstanceIncludeParty_TC03_IncludePartyNotIcnluded()
+    {
+        int instanceOwnerId = 123456;
+        Guid instanceGuid = Guid.NewGuid();
+
+        _registerMock.Setup(r =>
+        r.GetParty(It.IsAny<int>()))
+            .ReturnsAsync(Parties.Party1);
+
+        _storageMock.Setup(s =>
+        s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
+            .ReturnsAsync(Instances.Instance1);
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
+
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        Assert.Null(actual.Party);
+        Assert.NotNull(actual.Instance);
+        Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
+    }
+
+    [Fact]
+    public async Task GetInstanceIncludeParty_TC04_StorageThrowsException()
+    {
+        int instanceOwnerId = 123456;
+        Guid instanceGuid = Guid.NewGuid();
+
+        _storageMock.Setup(s =>
+        s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
+            .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError }, string.Empty));
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+
+        Assert.Equal(System.Net.HttpStatusCode.InternalServerError, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetInstanceIncludeParty_TC05_RegisterThrowsException()
+    {
+        int instanceOwnerId = 123456;
+        Guid instanceGuid = Guid.NewGuid();
+        bool includeParty = true;
+
+        _registerMock.Setup(r =>
+        r.GetParty(It.IsAny<int>()))
+         .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.NotFound }, string.Empty));
+
+        _storageMock.Setup(s =>
+        s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
+            .ReturnsAsync(Instances.Instance1);
+
+        HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
+
+        HttpResponseMessage response = await client.GetAsync(url);
+        Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    private static string GetUserToken(int userId)
+    {
+        List<Claim> claims = new List<Claim>();
+        string issuer = "www.altinn.no";
+
+        if (userId != -1)
         {
-            _factory = factory;
-            _registerMock = new Mock<IRegister>();
-            _storageMock = new Mock<IStorage>();
-            _profileMock = new Mock<IProfile>();
-            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            claims.Add(new Claim(AltinnCoreClaimTypes.UserId, userId.ToString(), ClaimValueTypes.String, issuer));
         }
 
-        [Fact]
-        public async void GetCurrentUser_TC01_AuthenticatedUser()
+        claims.Add(new Claim(AltinnCoreClaimTypes.UserName, "UserOne", ClaimValueTypes.String, issuer));
+        claims.Add(new Claim(AltinnCoreClaimTypes.PartyID, (userId + 5000).ToString(), ClaimValueTypes.Integer32, issuer));
+        claims.Add(new Claim(AltinnCoreClaimTypes.AuthenticateMethod, "Mock", ClaimValueTypes.String, issuer));
+        claims.Add(new Claim(AltinnCoreClaimTypes.AuthenticationLevel, "2", ClaimValueTypes.Integer32, issuer));
+
+        ClaimsIdentity identity = new ClaimsIdentity("mock");
+        identity.AddClaims(claims);
+        ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+        string token = JwtTokenMock.GenerateToken(principal);
+
+        return token;
+    }
+
+    private HttpClient GetTestClient(Mock<IRegister> registerMock, Mock<IStorage> storageMock, Mock<IProfile> profileMock)
+    {
+        string projectDir = Directory.GetCurrentDirectory();
+        string configPath = Path.Combine($"{projectDir}", "appsettings.json");
+
+        HttpClient client = _factory.WithWebHostBuilder(builder =>
         {
-            _profileMock
-           .Setup(p => p.GetUser(It.IsAny<int>()))
-           .ReturnsAsync(UserProfiles.User1);
+            builder.ConfigureTestServices(services =>
+                {
+                    services.AddSingleton(registerMock.Object);
+                    services.AddSingleton(storageMock.Object);
+                    services.AddSingleton(profileMock.Object);
+                    services
+                        .AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
+                }).ConfigureAppConfiguration((context, conf) => { conf.AddJsonFile(configPath); });
+        }).CreateClient();
 
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}users/current";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            UserProfile actual = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
-
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            Assert.IsType<UserProfile>(actual);
-        }
-
-        [Fact]
-        public async void GetCurrentUser_TC02_MissingUserClaim()
-        {
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(-1));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}users/current";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
-        }
-        
-        [Fact]
-        public async void GetCurrentUser_TC03_ServiceThrowsException()
-        {
-            _profileMock
-             .Setup(p => p.GetUser(It.IsAny<int>()))
-             .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.Forbidden }, string.Empty));
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}users/current";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            Assert.Equal(System.Net.HttpStatusCode.Forbidden, response.StatusCode);
-        }
-
-        [Fact]
-        public async void GetCurrentUserLanguage_TC01_NoCookie_ReturnsNoContent()
-        {
-            _profileMock
-           .Setup(p => p.GetUser(It.IsAny<int>()))
-           .ReturnsAsync(UserProfiles.User1);
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}users/current/language";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-
-            Assert.Equal(System.Net.HttpStatusCode.NoContent, response.StatusCode);
-        }
-
-        [Fact]
-        public async void GetInstanceIncludeParty_TC01_IncludePartyFalse()
-        {
-            int instanceOwnerId = 123456;
-            Guid instanceGuid = Guid.NewGuid();
-            bool includeParty = false;
-
-            _registerMock.Setup(r =>
-            r.GetParty(It.IsAny<int>()))
-                .ReturnsAsync(Parties.Party1);
-
-            _storageMock.Setup(s =>
-            s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
-                .ReturnsAsync(Instances.Instance1);
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
-
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            Assert.Null(actual.Party);
-            Assert.NotNull(actual.Instance);
-            Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
-        }
-        
-        [Fact]
-        public async void GetInstanceIncludeParty_TC02_IncludePartyTrue()
-        {
-            int instanceOwnerId = 123456;
-            Guid instanceGuid = Guid.NewGuid();
-            bool includeParty = true;
-
-            _registerMock.Setup(r =>
-            r.GetParty(It.IsAny<int>()))
-                .ReturnsAsync(Parties.Party1);
-
-            _storageMock.Setup(s =>
-            s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
-                .ReturnsAsync(Instances.Instance1);
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
-
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            Assert.NotNull(actual.Party);
-            Assert.NotNull(actual.Instance);
-            Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
-            Assert.Equal(Parties.Party1.PartyTypeName, actual.Party.PartyTypeName);
-        }
-
-        [Fact]
-        public async void GetInstanceIncludeParty_TC03_IncludePartyNotIcnluded()
-        {
-            int instanceOwnerId = 123456;
-            Guid instanceGuid = Guid.NewGuid();
-
-            _registerMock.Setup(r =>
-            r.GetParty(It.IsAny<int>()))
-                .ReturnsAsync(Parties.Party1);
-
-            _storageMock.Setup(s =>
-            s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
-                .ReturnsAsync(Instances.Instance1);
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            ExtendedInstance actual = JsonConvert.DeserializeObject<ExtendedInstance>(await response.Content.ReadAsStringAsync());
-
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            Assert.Null(actual.Party);
-            Assert.NotNull(actual.Instance);
-            Assert.Equal("tdd/auth-level-3", actual.Instance.AppId);
-        }
-
-        [Fact]
-        public async void GetInstanceIncludeParty_TC04_StorageThrowsException()
-        {
-            int instanceOwnerId = 123456;
-            Guid instanceGuid = Guid.NewGuid();
-
-            _storageMock.Setup(s =>
-            s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
-                .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.InternalServerError }, string.Empty));
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-
-            Assert.Equal(System.Net.HttpStatusCode.InternalServerError, response.StatusCode);
-        }
-
-        [Fact]
-        public async void GetInstanceIncludeParty_TC05_RegisterThrowsException()
-        {
-            int instanceOwnerId = 123456;
-            Guid instanceGuid = Guid.NewGuid();
-            bool includeParty = true;
-
-            _registerMock.Setup(r =>
-            r.GetParty(It.IsAny<int>()))
-             .Throws(new PlatformHttpException(new HttpResponseMessage { StatusCode = System.Net.HttpStatusCode.NotFound }, string.Empty));
-
-            _storageMock.Setup(s =>
-            s.GetInstance(It.IsAny<int>(), It.IsAny<Guid>()))
-                .ReturnsAsync(Instances.Instance1);
-
-            HttpClient client = GetTestClient(_registerMock, _storageMock, _profileMock);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetUserToken(3));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string url = $"{BasePath}instances/{instanceOwnerId}/{instanceGuid}?includeParty={includeParty}";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        private static string GetUserToken(int userId)
-        {
-            List<Claim> claims = new List<Claim>();
-            string issuer = "www.altinn.no";
-
-            if (userId != -1)
-            {
-                claims.Add(new Claim(AltinnCoreClaimTypes.UserId, userId.ToString(), ClaimValueTypes.String, issuer));
-            }
-
-            claims.Add(new Claim(AltinnCoreClaimTypes.UserName, "UserOne", ClaimValueTypes.String, issuer));
-            claims.Add(new Claim(AltinnCoreClaimTypes.PartyID, (userId + 5000).ToString(), ClaimValueTypes.Integer32, issuer));
-            claims.Add(new Claim(AltinnCoreClaimTypes.AuthenticateMethod, "Mock", ClaimValueTypes.String, issuer));
-            claims.Add(new Claim(AltinnCoreClaimTypes.AuthenticationLevel, "2", ClaimValueTypes.Integer32, issuer));
-
-            ClaimsIdentity identity = new ClaimsIdentity("mock");
-            identity.AddClaims(claims);
-            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-            string token = JwtTokenMock.GenerateToken(principal);
-
-            return token;
-        }
-
-        private HttpClient GetTestClient(Mock<IRegister> registerMock, Mock<IStorage> storageMock, Mock<IProfile> profileMock)
-        {
-            string projectDir = Directory.GetCurrentDirectory();
-            string configPath = Path.Combine($"{projectDir}", "appsettings.json");
-
-            HttpClient client = _factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureTestServices(services =>
-                    {
-                        services.AddSingleton(registerMock.Object);
-                        services.AddSingleton(storageMock.Object);
-                        services.AddSingleton(profileMock.Object);
-                        services
-                            .AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
-                    }).ConfigureAppConfiguration((context, conf) => { conf.AddJsonFile(configPath); });
-            }).CreateClient();
-
-            return client;
-        }
+        return client;
     }
 }
