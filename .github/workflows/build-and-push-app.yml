@@ -84,7 +84,9 @@ jobs:
           flux push artifact oci://${{ env.REGISTRY }}/configs/${{ env.APP_NAME }}-${{ matrix.environment }}:${{ env.SHORT_SHA }} \
           --path="./.deploy" \
           --source="$(git config --get remote.origin.url)" \
-          --revision="$(git branch --show-current)/$(git rev-parse HEAD)"
+          --revision="$(git branch --show-current)/$(git rev-parse HEAD)" \
+          --annotations "org.opencontainers.image.description=altinn-receipt" \
+          --annotations "org.opencontainers.image.authors=team-core"
 
       - name: Tag artifact as latest
         run: |
