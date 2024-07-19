@@ -29,6 +29,5 @@ spec:
     name: flux-values
     valuesKey: values.yaml
   values:
-    environment: 
     image:
       tag: "$SHA"
