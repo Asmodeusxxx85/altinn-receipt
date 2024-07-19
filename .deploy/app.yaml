@@ -1,3 +1,4 @@
+# Only change this file to update the chart
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
