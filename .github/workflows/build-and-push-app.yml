@@ -82,7 +82,7 @@ jobs:
       - name: Push config artifact
         run: |
           flux push artifact oci://${{ env.REGISTRY }}/configs/${{ env.APP_NAME }}-${{ matrix.environment }}:${{ env.SHORT_SHA }} \
-          --path="./deploy" \
+          --path="./.deploy" \
           --source="$(git config --get remote.origin.url)" \
           --revision="$(git branch --show-current)/$(git rev-parse HEAD)"
           --app=${{ env.APP_NAME }}
