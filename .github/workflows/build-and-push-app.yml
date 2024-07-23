@@ -55,7 +55,7 @@ jobs:
     needs: docker-build-push
     strategy:
       matrix:
-        environment: [at23]
+        environment: [at21, at22, at23, at24, tt02, prod]
     environment: ${{ matrix.environment }}
     env:
       SHORT_SHA: ${{ needs.docker-build-push.outputs.short_sha }}
