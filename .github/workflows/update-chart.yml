@@ -34,7 +34,8 @@ jobs:
         id: get-latest-version
         run: |
           latest_version=$(az acr repository show-tags --name ${{ env.REGISTRY }} --repository charts/${{ env.APP_NAME }} --output tsv --orderby time_desc --top 1)
-          echo "latest_version=$latest_version" >> $GITHUB_ENV
+          # Replace `_` with `+`, this is due to the oci repo not supporting `+` in tags
+          echo "latest_version=${latest_version//_/+}" >> $GITHUB_ENV
 
       - name: Extract current version from YAML
         id: extract-current-version
