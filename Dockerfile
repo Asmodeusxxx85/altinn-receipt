@@ -1,4 +1,4 @@
-FROM node:22.8-alpine3.20 AS build-receipt-frontend
+FROM node:22.9-alpine3.20 AS build-receipt-frontend
 
 WORKDIR /build
 
@@ -17,7 +17,7 @@ RUN yarn --immutable
 RUN yarn run build
 
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0.401-alpine3.20 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0.402-alpine3.20 AS build
 
 # Copy receipt backend
 WORKDIR /Receipt/
