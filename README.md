@@ -28,7 +28,7 @@ git clone https://github.com/Altinn/altinn-receipt
 cd altinn-receipt
 ```
 __Prerequisite__
-1. This **Receipt** needs `app-localtest` for backend services. Before starting the `app-localtest` some modification woul dbe needed in the docker-compose.yml file to set a couple of environment variables.
+1. This **Receipt** needs `app-localtest` for backend services. Before starting the `app-localtest` some modification would be needed in the docker-compose.yml file to set a couple of environment variables.
 2. Also an app from **Altinn Studio** is needed for creating data that should be presented in the **Receipt**. 
 
 
