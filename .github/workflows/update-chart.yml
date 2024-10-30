@@ -74,3 +74,11 @@ jobs:
       - name: Clean up
         if: steps.compare-versions.outputs.should_update == 'true'
         run: git checkout main
+
+      - name: Send Trace to Azure Monitor
+        uses: altinn/altinn-platform/actions/send-ci-cd-trace@v1.0.0
+        with:
+          connection_string: ${{ secrets.APP_INSIGHTS_CONNECTION_STRING }}
+          app: "${{ env.APP_NAME }}"
+          team: "core"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
